@@ -1,25 +1,22 @@
-
 # Healthcare Microservices Platform
 
-A backend microservices application built with Java and Spring Boot to explore
-distributed system architecture, service-to-service communication,
-authentication, event-driven communication, and containerized development.
+A backend microservices application built with **Java and Spring Boot** to explore distributed system architecture, service-to-service communication, authentication, event-driven communication, and containerized development.
 
 ## Architecture
 
 The application is divided into multiple independent services:
 
-- **Auth Service** – Authentication and authorization using Spring Security and JWT
-- **Patient Service** – Patient management and REST APIs
-- **Billing Service** – Billing operations exposed through gRPC
-- **Notification Service** – Processes asynchronous events
-- **Analytics Service** – Consumes application events for analytics
-- **API Gateway** – Central entry point for client requests
-- **PostgreSQL** – Persistent storage for services
-- **Apache Kafka** – Event-driven communication
-- **gRPC** – Synchronous service-to-service communication
+* **Auth Service** – Authentication and authorization using Spring Security and JWT
+* **Patient Service** – Patient management and REST APIs
+* **Billing Service** – Billing operations exposed through gRPC
+* **Notification Service** – Processes asynchronous events
+* **Analytics Service** – Consumes application events for analytics
+* **API Gateway** – Central entry point for client requests
+* **PostgreSQL** – Persistent storage for services
+* **Apache Kafka** – Event-driven communication
+* **gRPC** – Synchronous service-to-service communication
 
-### High-Level Flow
+### High-Level Architecture
 
 ```text
                          Client
@@ -33,23 +30,23 @@ The application is divided into multiple independent services:
               |                         |
               v                         v
        +-------------+           +-------------+
-       | Auth Service|           |Patient      |
-       | JWT/Security|           |Service      |
+       | Auth Service|           |   Patient   |
+       | JWT/Security|           |   Service   |
        +-------------+           +------+------+
                                        |
                               +--------+--------+
                               |                 |
                               v                 v
                        +-------------+     +----------+
-                       |Billing      |     |  Kafka   |
-                       |Service      |     +----+-----+
-                       |gRPC         |          |
+                       |   Billing   |     |  Kafka   |
+                       |   Service   |     +----+-----+
+                       |    gRPC     |          |
                        +-------------+          v
-                                         +-------------+
-                                         | Analytics / |
-                                         | Notification|
-                                         +-------------+
-````
+                                      +-------------------+
+                                      | Analytics /       |
+                                      | Notification      |
+                                      +-------------------+
+```
 
 ## Technologies
 
@@ -118,9 +115,6 @@ Responsible for:
 * Communication with Billing Service
 * Publishing events to Kafka
 
-Example environment configuration includes PostgreSQL and Kafka
-connections.
-
 ### Billing Service
 
 Provides billing functionality through **gRPC**.
@@ -132,13 +126,15 @@ The project uses:
 * gRPC Spring Boot Starter
 * Protocol Buffers
 
-
-
 ### Notification Service
 
 Consumes Kafka events and processes notification-related operations.
 
 Kafka is configured through the Spring Kafka integration.
+
+### Analytics Service
+
+Consumes application events from Kafka for analytics-related processing.
 
 ## Communication Patterns
 
@@ -201,8 +197,8 @@ Install:
 ### Clone
 
 ```bash
-git clone <YOUR_REPOSITORY_URL>
-cd <PROJECT_DIRECTORY>
+git clone https://github.com/asmitayush3021/Healthcare-microservices-platform.git
+cd Healthcare-microservices-platform
 ```
 
 ### Start Infrastructure
@@ -244,7 +240,20 @@ BILLING_SERVICE_ADDRESS=billing-service
 BILLING_SERVICE_GRPC_PORT=9005
 ```
 
+## Project Structure
 
+```text
+Healthcare-microservices-platform/
+│
+├── auth-service/
+├── patient-service/
+├── billing-service/
+├── notification-service/
+├── analytics-service/
+├── api-gateway/
+├── docker-compose.yml
+└── README.md
+```
 
 ## What I Learned
 
@@ -262,6 +271,7 @@ This project provides hands-on experience with:
 * Apache Kafka
 * Event-driven architecture
 * Docker
+* Docker Compose
 * Integration testing
 * Service-to-service communication
 
@@ -280,4 +290,6 @@ Potential improvements include:
 * Database migration using Flyway or Liquibase
 * Improved observability with Prometheus and Grafana
 
+## License
 
+This project is intended for educational and learning purposes.
